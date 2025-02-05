@@ -123,7 +123,7 @@ this.blogList.innerHTML = this.blogManager.blogs
 <div class="blog-post">
 <h2 class="blog-title">${blog.title}</h2>
 <div class="blog-date">
-พิ่เดทึเอ: ${blog.getFormattedDate()}
+อัพเดทเมื่อ: ${blog.getFormattedDate()}
 </div>
 <div class="blog-content">
 ${blog.content.replace(/\n/g, "<br>")}
@@ -131,10 +131,10 @@ ${blog.content.replace(/\n/g, "<br>")}
 <div class="blog-actions">
 <button class="btn-edit" onclick="blogUI.editBlog(${
 blog.id
-})">แไขี</button>
+})">แก้ไข</button>
 <button class="btn-delete" onclick="blogUI.deleteBlog(${
 blog.id
-})">ล็บ</button>
+})">ลบ</button>
 </div>
 </div>
 `
