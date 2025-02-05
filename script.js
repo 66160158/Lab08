@@ -171,26 +171,33 @@ class Blog {
     }
   
     render() {
-      // กรองบล็อกก่อนการแสดงผล
-      this.blogList.innerHTML = this.blogManager.filteredBlogs
-        .map(
-          (blog) => `
-          <div class="blog-post">
-            <h2 class="blog-title">${blog.title}</h2>
-            <div class="blog-date">อัพเดทเมื่อ: ${blog.getFormattedDate()}</div>
-            <div class="blog-content">${blog.content.replace(/\n/g, "<br>")}</div>
-            <div class="blog-tags">
-              <strong>Tags:</strong> ${blog.tags.join(", ")}
-            </div>
-            <div class="blog-actions">
-              <button class="btn-edit" onclick="blogUI.editBlog(${blog.id})">แก้ไข</button>
-              <button class="btn-delete" onclick="blogUI.deleteBlog(${blog.id})">ลบ</button>
-            </div>
-          </div>
-        `
-        )
-        .join("");
-    }
+        // กรองบล็อกก่อนการแสดงผล
+        this.blogList.innerHTML = this.blogManager.filteredBlogs
+          .map(
+            (blog) => {
+              if (!(blog instanceof Blog)) {
+                console.error("Expected instance of Blog, but got:", blog);
+                return ''; // หากไม่ใช่ instance ของ Blog จะไม่แสดงอะไร
+              }
+              return `
+              <div class="blog-post">
+                <h2 class="blog-title">${blog.title}</h2>
+                <div class="blog-date">อัพเดทเมื่อ: ${blog.getFormattedDate()}</div>
+                <div class="blog-content">${blog.content.replace(/\n/g, "<br>")}</div>
+                <div class="blog-tags">
+                  <strong>Tags:</strong> ${blog.tags.join(", ")}
+                </div>
+                <div class="blog-actions">
+                  <button class="btn-edit" onclick="blogUI.editBlog(${blog.id})">แก้ไข</button>
+                  <button class="btn-delete" onclick="blogUI.deleteBlog(${blog.id})">ลบ</button>
+                </div>
+              </div>
+            `
+            }
+          )
+          .join("");
+      }
+      
   }
   
   // สร้างตัวเลือก Tags สำหรับกรอง
